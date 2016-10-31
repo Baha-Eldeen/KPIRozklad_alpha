@@ -91,6 +91,12 @@ public class StartMenuActivity extends AppCompatActivity
         navigationView.setItemTextColor(csl);
         navigationView.setItemIconTintList(csl2);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Navigate to general form
+        FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame,
+                    new StartMenuFragment())
+                    .commit();
     }
 
     @Override
