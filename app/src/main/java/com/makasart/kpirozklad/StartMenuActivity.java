@@ -1,8 +1,12 @@
 package com.makasart.kpirozklad;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.SpannableString;
+import android.text.style.TextAppearanceSpan;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,14 +27,14 @@ public class StartMenuActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+   /*     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        }); */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -39,6 +43,52 @@ public class StartMenuActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        // FOR NAVIGATION VIEW ITEM TEXT COLOR
+        int[][] state = new int[][] {
+                new int[] {-android.R.attr.state_enabled}, // disabled
+                new int[] {android.R.attr.state_enabled}, // enabled
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_pressed}  // pressed
+
+        };
+
+        int[] color = new int[] {
+                Color.WHITE,
+                Color.WHITE,
+                Color.WHITE,
+                Color.WHITE
+        };
+
+        ColorStateList csl = new ColorStateList(state, color);
+
+
+// FOR NAVIGATION VIEW ITEM ICON COLOR
+        int[][] states = new int[][] {
+                new int[] {-android.R.attr.state_enabled}, // disabled
+                new int[] {android.R.attr.state_enabled}, // enabled
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_pressed}  // pressed
+
+        };
+
+        int[] colors = new int[] {
+                Color.WHITE,
+                Color.WHITE,
+                Color.WHITE,
+                Color.WHITE
+        };
+
+        //added white color to "communicate" in menu
+        Menu menu = navigationView.getMenu();
+        MenuItem tools= menu.findItem(R.id.communicate);
+        SpannableString s = new SpannableString(tools.getTitle());
+        s.setSpan(new TextAppearanceSpan(this, R.style.TextAppearance44), 0, s.length(), 0);
+        tools.setTitle(s);
+        //
+
+        ColorStateList csl2 = new ColorStateList(states, colors);
+        navigationView.setItemTextColor(csl);
+        navigationView.setItemIconTintList(csl2);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -80,13 +130,13 @@ public class StartMenuActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_notes) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_notes) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_notes) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_notes) {
 
         } else if (id == R.id.nav_share) {
 
