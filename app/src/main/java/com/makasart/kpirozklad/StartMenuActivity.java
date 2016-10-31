@@ -1,5 +1,6 @@
 package com.makasart.kpirozklad;
 
+import android.app.FragmentManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -130,14 +131,32 @@ public class StartMenuActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_notes) {
-            // Handle the camera action
-        } else if (id == R.id.nav_notes) {
+        FragmentManager fragmentManager = getFragmentManager();
 
+        if (id == R.id.nav_schedule) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame,
+                    new ScheduleFragment())
+                    .commit();
+        } else if (id == R.id.nav_tasks) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame,
+                    new TasksFragment())
+                    .commit();
         } else if (id == R.id.nav_notes) {
-
-        } else if (id == R.id.nav_notes) {
-
+            fragmentManager.beginTransaction().replace(R.id.content_frame,
+                    new NotesFragment())
+                    .commit();
+        } else if (id == R.id.nav_teachers) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame,
+                    new TeachersFragment())
+                    .commit();
+        } else if (id == R.id.nav_settings) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame,
+                    new SettingsFragment())
+                    .commit();
+        } else if (id == R.id.nav_about) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame,
+                    new AboutUsFragment())
+                    .commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
