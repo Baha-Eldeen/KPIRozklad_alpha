@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/bg"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight=".22">
 
             <LinearLayout
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight=".50"
                 android:layout_width="0dp"
-                android:layout_height="110dp"
+                android:layout_height="match_parent"
                 android:id="@+id/Relative_layout_with_tasks"
-                android:background="@drawable/ico1"
+                android:background="@drawable/taskrec"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -37,7 +33,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="15dp"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
                         android:src="@drawable/task"/>
@@ -54,9 +50,8 @@
                         android:layout_height="wrap_content"
                         android:text="Add task"
                         android:textStyle="normal|bold"
-                        android:textSize="17sp"
+                        android:textSize="18sp"
                         android:textColor="@color/textColorPrimary"
-                        android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"/>
 
                 </RelativeLayout>
@@ -64,14 +59,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight=".50"
                 android:layout_width="0dp"
-                android:layout_height="110dp"
-                android:background="@drawable/ico1"
+                android:layout_height="match_parent"
+                android:background="@drawable/noterec"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -82,7 +74,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="15dp"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
                         android:src="@drawable/note"/>
@@ -101,7 +93,6 @@
                         android:textStyle="normal|bold"
                         android:textSize="18sp"
                         android:textColor="@color/textColorPrimary"
-                        android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"/>
 
                 </RelativeLayout>
@@ -111,6 +102,445 @@
         </LinearLayout>
 
 
-    </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="0.2">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".5"
+                android:orientation="horizontal"
+                android:background="@drawable/sector3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:textColor="@color/textColorPrimary"
+                    android:text="All notes"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"/>
+
+                <RelativeLayout
+                    android:layout_width="42dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentRight="true"
+                    android:orientation="vertical"
+                    android:background="@drawable/circle1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="16"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="24sp"
+                        android:textStyle="normal|bold"
+                        android:textColor="@color/textColorPrimary"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".5"
+                android:orientation="horizontal"
+                android:background="@drawable/sector3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:textColor="@color/textColorPrimary"
+                    android:text="All tasks"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"/>
+
+                <RelativeLayout
+                    android:layout_width="42dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentRight="true"
+                    android:orientation="vertical"
+                    android:background="@drawable/circle1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="24sp"
+                        android:textStyle="normal|bold"
+                        android:textColor="@color/textColorPrimary"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".58"
+            android:orientation="vertical"
+            android:background="@drawable/bgsub">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".25"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".3"
+                        android:background="@drawable/circle_line_top3"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".7"
+                        android:background="@drawable/line_inactive3"/>
+
+
+                </LinearLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+
+                        <TextView
+                            android:textStyle="normal|bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:textColor="@color/textColorPrimary"
+                            android:text="Subject name"/>
+
+                        <TextView
+                            android:textStyle="normal|bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="@color/textColorPrimary"
+                            android:text="Teacher N. M."/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:textStyle="normal|bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="@color/textColorPrimary"
+                                android:text="301-18"/>
+
+                            <TextView
+                                android:textStyle="normal|bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:layout_marginLeft="30dp"
+                                android:textColor="@color/textColorPrimary"
+                                android:text="9:30 - 10:45"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/linesuper2"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".3">
+
+                <LinearLayout
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".39"
+                        android:background="@drawable/line_active2"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".22"
+                        android:background="@drawable/circle_line_center"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".39"
+                        android:background="@drawable/line_active2"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerInParent="true"
+                        android:layout_centerHorizontal="true">
+
+                        <TextView
+                            android:textStyle="normal|bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="22sp"
+                            android:textColor="@color/textColorPrimary"
+                            android:text="Subject name"/>
+
+                        <TextView
+                            android:textStyle="normal|bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="17sp"
+                            android:textColor="@color/textColorPrimary"
+                            android:text="Teacher N. M."/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:textStyle="normal|bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="17sp"
+                                android:textColor="@color/textColorPrimary"
+                                android:text="301-18"/>
+
+                            <TextView
+                                android:textStyle="normal|bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="17sp"
+                                android:layout_marginLeft="25dp"
+                                android:textColor="@color/textColorPrimary"
+                                android:text="9:30 - 10:45"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:textColor="@color/leftMinutes"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="25 minutes left"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/linesuper2"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".25">
+
+                <LinearLayout
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".7"
+                        android:background="@drawable/line_inactive3"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".3"
+                        android:background="@drawable/circle_line_bottom3"/>
+
+
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+
+                        <TextView
+                            android:textStyle="normal|bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:textColor="@color/textColorPrimary"
+                            android:text="Subject name"/>
+
+                        <TextView
+                            android:textStyle="normal|bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="@color/textColorPrimary"
+                            android:text="Teacher N. M."/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:textStyle="normal|bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="@color/textColorPrimary"
+                                android:text="301-18"/>
+
+                            <TextView
+                                android:textStyle="normal|bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:layout_marginLeft="30dp"
+                                android:textColor="@color/textColorPrimary"
+                                android:text="9:30 - 10:45"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".2"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".15"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".7">
+                    <RelativeLayout
+                        android:layout_width="140dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/seeall"
+                        android:layout_centerHorizontal="true">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="See all"
+                        android:textSize="23sp"
+                        android:textColor="@color/textColorPrimary"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".15"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </RelativeLayout>
