@@ -15,6 +15,7 @@ import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class StartMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

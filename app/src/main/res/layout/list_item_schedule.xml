@@ -7,32 +7,32 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="100dp">
 
         <LinearLayout
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="20dp"
-            android:layout_width="20dp"
+            android:layout_width="15dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".39"
-                android:background="@drawable/line_active2"/>
+                android:layout_weight=".42"
+                android:background="@drawable/line_active3"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".22"
+                android:layout_weight=".16"
                 android:background="@drawable/circle_line_center"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".39"
-                android:background="@drawable/line_active2"/>
+                android:layout_weight=".42"
+                android:background="@drawable/line_active3"/>
 
         </LinearLayout>
 
@@ -44,79 +44,89 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true">
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
                 <TextView
                     android:id="@+id/list_subject_name"
                     android:textStyle="normal|bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="22sp"
+                    android:textSize="20sp"
                     android:textColor="@color/textColorPrimary"
-                    android:text="Subject name"/>
+                    android:text="Subject name"
+                    style="@style/TextIN"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/list_teacher_name"
-                    android:textStyle="normal|bold"
+                    android:textStyle="normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:textColor="@color/textColorPrimary"
-                    android:text="Teacher N. M."/>
+                    android:text="Teacher N. M."
+                    style="@style/TextIN"/>
+
+                <TextView
+                    android:textColor="@color/leftMinutes"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25 minutes left"
+                    android:layout_centerVertical="true"
+                    style="@style/TextIN"/>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
 
                     <TextView
                         android:id="@+id/list_is_practice"
-                        android:textStyle="normal|bold"
+                        android:textStyle="normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="17sp"
+                        android:textSize="15sp"
                         android:textColor="@color/textColorPrimary"
-                        android:text="Practice 1"/>
+                        android:text="Practice 1"
+                        style="@style/TextIN"/>
 
                     <TextView
                         android:id="@+id/list_where_is"
-                        android:textStyle="normal|bold"
+                        android:textStyle="normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="17sp"
+                        android:textSize="15sp"
                         android:textColor="@color/textColorPrimary"
                         android:layout_marginLeft="20dp"
-                        android:text="301-18"/>
+                        android:text="301-18"
+                        style="@style/TextIN"/>
 
                     <TextView
                         android:id="@+id/list_time"
-                        android:textStyle="normal|bold"
+                        android:textStyle="normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="17sp"
+                        android:textSize="15sp"
                         android:layout_marginLeft="20dp"
                         android:textColor="@color/textColorPrimary"
-                        android:text="9:30 - 10:45"/>
+                        android:text="9:30 - 10:45"
+                        style="@style/TextIN"/>
 
                 </LinearLayout>
 
             </LinearLayout>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:textColor="@color/leftMinutes"
-                android:textSize="15sp"
-                android:layout_marginLeft="7dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="25 minutes left"
-                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
 
