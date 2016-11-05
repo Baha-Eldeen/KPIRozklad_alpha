@@ -3,11 +3,18 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark">
+              android:showDividers="none"
+              android:adjustViewBounds="true"
+              android:scaleType="fitXY">
 
     <LinearLayout
+        android:id="@+id/general_list_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="100dp"
+        android:background="@drawable/rec2"
+        android:showDividers="none"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY">
 
         <LinearLayout
             android:layout_marginLeft="5dp"
@@ -41,7 +48,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_centerVertical="true"
@@ -58,73 +65,120 @@
                     android:text="Subject name"
                     style="@style/TextIN"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="5dp">
 
-                <TextView
-                    android:id="@+id/list_teacher_name"
-                    android:textStyle="normal"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="@color/textColorPrimary"
-                    android:text="Teacher N. M."
-                    style="@style/TextIN"/>
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/user"/>
+
+
+                    <TextView
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/list_teacher_name"
+                        android:textStyle="normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/textColorPrimary"
+                        android:text="Teacher N. M."
+                        style="@style/TextIN"/>
+
+                </LinearLayout>
 
                 <TextView
+                    android:layout_alignParentRight="true"
                     android:textColor="@color/leftMinutes"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="50dp"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="25 minutes left"
                     android:layout_centerVertical="true"
                     style="@style/TextIN"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_marginRight="10dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="5dp">
+
+                    <LinearLayout
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/watch"/>
+
+                        <TextView
+                            android:id="@+id/list_time"
+                            android:textStyle="normal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/textColorPrimary"
+                            android:text="9:30 - 10:45"
+                            style="@style/TextIN"/>
+
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/list_is_practice"
                         android:textStyle="normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textColor="@color/textColorPrimary"
                         android:text="Practice 1"
-                        style="@style/TextIN"/>
+                        style="@style/TextIN"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"/>
 
-                    <TextView
-                        android:id="@+id/list_where_is"
-                        android:textStyle="normal"
+                    <LinearLayout
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:textColor="@color/textColorPrimary"
-                        android:layout_marginLeft="20dp"
-                        android:text="301-18"
-                        style="@style/TextIN"/>
+                        android:orientation="horizontal"
+                        android:layout_toRightOf="@id/list_is_practice">
 
-                    <TextView
-                        android:id="@+id/list_time"
-                        android:textStyle="normal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:layout_marginLeft="20dp"
-                        android:textColor="@color/textColorPrimary"
-                        android:text="9:30 - 10:45"
-                        style="@style/TextIN"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/marker"/>
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/list_where_is"
+                            android:textStyle="normal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/textColorPrimary"
+                            android:text="301-18"
+                            style="@style/TextIN"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
 

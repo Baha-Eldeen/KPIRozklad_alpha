@@ -1,6 +1,7 @@
 package com.makasart.kpirozklad;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -12,8 +13,8 @@ import java.util.UUID;
 public class ScheduleLab {
     private ArrayList<ScheduleItems> mScheduleItems = new ArrayList<ScheduleItems>();
     private Context mAppContext;
+    private int mNumberWhatBlock = 0;
 
-    //WARNING. Check whether the necessary statics method
     private static ScheduleLab mScheduleLab;
 
     public void addScheduleItem(ScheduleItems c) {
@@ -37,11 +38,27 @@ public class ScheduleLab {
 
     public ArrayList<ScheduleItems> getScheduleItems() {
         //@KOSTIL
-            for (int i = 0; i < 20; i++) {
+            int flag1 = -1, flag2 = -1;
+            for (int i = 0; i < 30; i++) {
                 ScheduleItems c = new ScheduleItems();
-                c.setTitle("Subject name "+Integer.toString(i));
-                c.setTeacherName("Teacher name "+Integer.toString(i));
-                c.setLocation("301-18 "+Integer.toString(i));
+                flag1++;
+                if (flag1 == 6) {
+                    flag1 = 0;
+                }
+                if (flag1 == 0) {
+                    flag2++;
+                    Log.d("CR", "+support"+Integer.toString(i));
+                    c.setThereSupport(true);
+                    c.setDayName(flag2);
+                }
+                else {
+                    Log.d("CR", "+general" + Integer.toString(i));
+                    c.setThereSupport(false);
+                    c.setTitle("Subject name " + Integer.toString(i));
+                    c.setTeacherName("Teacher name " + Integer.toString(i));
+                    c.setLocation("301-18");
+                    c.setTextureBlock(mSetTexture());
+                }
                 mScheduleItems.add(c);
         }
         return mScheduleItems;
@@ -53,5 +70,15 @@ public class ScheduleLab {
                 return c;
         }
         return null;
+    }
+
+    private boolean mSetTexture() {
+        mNumberWhatBlock++;
+        //if multiply 2, then use second texture
+        if (mNumberWhatBlock % 2 == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
