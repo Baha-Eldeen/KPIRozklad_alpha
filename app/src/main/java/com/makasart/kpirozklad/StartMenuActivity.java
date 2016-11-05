@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -20,10 +24,37 @@ import android.widget.TextView;
 public class StartMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static int width;
+    public static int height;
+    public int widthPixels;
+    public int heightPixels;
+    public static int orientation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_menu);
+
+        //Show display Size;
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        width = size.x;
+        height = size.y;
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        widthPixels = metrics.widthPixels;
+        heightPixels = metrics.heightPixels;
+        orientation = getResources().getConfiguration().orientation;
+
+        Log.d("NY", Integer.toString(width));
+        Log.d("NY", Integer.toString(height));
+        Log.d("NY", Integer.toString(widthPixels));
+        Log.d("NY", Integer.toString(heightPixels));
+        Log.d("NY", Integer.toString(orientation));
+
+        //
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
