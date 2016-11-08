@@ -3,6 +3,7 @@ package com.makasart.kpirozklad;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,10 +11,13 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -26,7 +30,7 @@ import android.widget.Toast;
 
 public class StartMenuFragment extends Fragment {
     View mView;
-    private RelativeLayout circle1, circle2;
+    private RelativeLayout circle1, circle2, seeall;
     private LinearLayout circle5, ln1, ln2, ln3, gen1;
     private boolean mIsPrepare = false;
 
@@ -36,6 +40,30 @@ public class StartMenuFragment extends Fragment {
         mView = inflater.inflate(R.layout.start_menu_fragment, container, false);
         mIsPrepare = false;
         PrepareBeforeStart();
+        seeall = (RelativeLayout)mView.findViewById(R.id.relativelayout_seeall);
+        seeall.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Animation animation = AnimationUtils.loadAnimation(getActivity(),
+                                R.anim.see_all_start);
+                      //  animation.setFillAfter(true);
+                        seeall.startAnimation(animation);
+                        return true; // if you want to handle the touch event
+                    case MotionEvent.ACTION_UP:
+                        Animation animation2 = AnimationUtils.loadAnimation(getActivity(),
+                                R.anim.see_all_end);
+                     //   animation2.setFillAfter(true);
+                        Intent mIntent = new Intent(getActivity(), ScheduleActivity.class);
+                        startActivity(mIntent);
+                        getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_in_down);
+                        seeall.startAnimation(animation2);
+                        return true; // if you want to handle the touch event
+                }
+                return false;
+            }
+        });
         return mView;
     }
 

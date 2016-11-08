@@ -5,7 +5,8 @@
               android:layout_height="wrap_content"
               android:showDividers="none"
               android:adjustViewBounds="true"
-              android:scaleType="fitXY">
+              android:scaleType="fitXY"
+              android:layout_y="-1dip">
 
     <LinearLayout
         android:id="@+id/general_list_layout"

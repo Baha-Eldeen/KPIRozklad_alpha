@@ -14,6 +14,7 @@ public class ScheduleLab {
     private ArrayList<ScheduleItems> mScheduleItems = new ArrayList<ScheduleItems>();
     private Context mAppContext;
     private int mNumberWhatBlock = 0;
+    private boolean mAlreadyCreate = false;
 
     private static ScheduleLab mScheduleLab;
 
@@ -38,29 +39,31 @@ public class ScheduleLab {
 
     public ArrayList<ScheduleItems> getScheduleItems() {
         //@KOSTIL
-            int flag1 = -1, flag2 = -1;
-            for (int i = 0; i < 30; i++) {
-                ScheduleItems c = new ScheduleItems();
-                flag1++;
-                if (flag1 == 6) {
-                    flag1 = 0;
+            if(!mAlreadyCreate) {
+                int flag1 = -1, flag2 = -1;
+                for (int i = 0; i < 30; i++) {
+                    ScheduleItems c = new ScheduleItems();
+                    flag1++;
+                    if (flag1 == 6) {
+                        flag1 = 0;
+                    }
+                    if (flag1 == 0) {
+                        flag2++;
+                        Log.d("CR", "+support" + Integer.toString(i));
+                        c.setThereSupport(true);
+                        c.setDayName(flag2);
+                    } else {
+                        Log.d("CR", "+general" + Integer.toString(i));
+                        c.setThereSupport(false);
+                        c.setTitle("Subject name " + Integer.toString(i));
+                        c.setTeacherName("Teacher name " + Integer.toString(i));
+                        c.setLocation("301-18");
+                        c.setTextureBlock(mSetTexture());
+                    }
+                    mScheduleItems.add(c);
                 }
-                if (flag1 == 0) {
-                    flag2++;
-                    Log.d("CR", "+support"+Integer.toString(i));
-                    c.setThereSupport(true);
-                    c.setDayName(flag2);
-                }
-                else {
-                    Log.d("CR", "+general" + Integer.toString(i));
-                    c.setThereSupport(false);
-                    c.setTitle("Subject name " + Integer.toString(i));
-                    c.setTeacherName("Teacher name " + Integer.toString(i));
-                    c.setLocation("301-18");
-                    c.setTextureBlock(mSetTexture());
-                }
-                mScheduleItems.add(c);
-        }
+                mAlreadyCreate = true;
+            }
         return mScheduleItems;
     }
 

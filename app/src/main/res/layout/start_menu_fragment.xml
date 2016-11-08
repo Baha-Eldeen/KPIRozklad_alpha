@@ -554,7 +554,8 @@
                         android:layout_width="140dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/seeall"
-                        android:layout_centerHorizontal="true">
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/relativelayout_seeall">
 
                         <TextView
                             android:layout_width="wrap_content"
