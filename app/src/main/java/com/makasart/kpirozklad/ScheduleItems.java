@@ -13,7 +13,7 @@ public class ScheduleItems {
     private UUID mID;  //Personal  id
     private String mTitle;  //Title of Para
     private String mTeacherName;  //teacher name
-    private int mWhatIsNow; //Practice, Lection ...
+    private String mWhatIsNow; //Practice, Lecture ...
     private int mNumberOfPara;  //Number of "Para"
     private String mLocation;  //Location, building and room
     private boolean mTextureBlock;  //What is a texture now
@@ -44,11 +44,11 @@ public class ScheduleItems {
         mTeacherName = teacherName;
     }
 
-    public int getWhatIsNow() {
+    public String getWhatIsNow() {
         return mWhatIsNow;
     }
 
-    public void setWhatIsNow(int whatIsNow) {
+    public void setWhatIsNow(String whatIsNow) {
         mWhatIsNow = whatIsNow;
     }
 
@@ -87,6 +87,23 @@ public class ScheduleItems {
 
     public String getDayName() {
         return mDayName;
+    }
+
+    public String getTime(int WhatPara) {
+        switch (WhatPara) {
+            case 1:
+                return "8:30 - 10:05";
+            case 2:
+                return "10:25 - 12:00";
+            case 3:
+                return "12:20 - 13:55";
+            case 4:
+                return "14:15 - 15:50";
+            case 5:
+                return "16:10 - 17:45";
+            default:
+                return "-";
+        }
     }
 
     public void setDayName(int dayName) {

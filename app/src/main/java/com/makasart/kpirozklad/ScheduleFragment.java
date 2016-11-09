@@ -35,6 +35,7 @@ public class ScheduleFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         mView = super.onCreateView(inflater, parent, savedInstanceState);
+ //       JsonParser jsp = new JsonParser();
         return mView;
     }
 
@@ -67,12 +68,12 @@ public class ScheduleFragment extends ListFragment {
                 mTeacherName.setText(c.getTeacherName());
                 TextView mIsLection = (TextView) convertView.findViewById(R.id.list_is_practice);
                 //@KOSTIL
-                mIsLection.setText("Lection");
+                mIsLection.setText(c.getWhatIsNow() + " " + Integer.toString(c.getNumberOfPara()));
                 TextView mLocation = (TextView) convertView.findViewById(R.id.list_where_is);
                 mLocation.setText(c.getLocation());
                 TextView mTime = (TextView) convertView.findViewById(R.id.list_time);
                 //@KOSTIL
-                mTime.setText("9:30 - 10:45");
+                mTime.setText(c.getTime(c.getNumberOfPara()));
                 Log.d("FUCK", "Create general");
             }
             return convertView;
