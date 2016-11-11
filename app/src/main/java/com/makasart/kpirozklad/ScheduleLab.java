@@ -2,7 +2,12 @@ package com.makasart.kpirozklad;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -28,14 +33,15 @@ public class ScheduleLab {
     }
 
     private ScheduleLab(Context appContext) {
-        JsonParser preJson = new JsonParser();
-        //////////////////////////////////////////////////fix later
-        for ( ; ; ) {
-            mParsedAlready = preJson.getScheduleItems();
-            if (preJson.mWait)
-                break;
+        JsonParser jsPars = new JsonParser(appContext);
+        try {
+            JSONObject jsOBJ = jsPars.readJsonFile();
+            jsPars.someParsing(jsOBJ);
+            mParsedAlready = jsPars.getScheduleItems();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        //////////////////////////////////////////////////fix later
+        //in this place i write read json file and serialize this one
         mAppContext = appContext;
     }
 
@@ -47,31 +53,30 @@ public class ScheduleLab {
     }
 
     public ArrayList<ScheduleItems> getScheduleItems() {
-        //@KOSTIL
-            if(!mAlreadyCreate) {
-                int flag2 = -1;
-                for (int i = 0; i < 5; i++) {
-                    int flag1 = 0;
+        if (!mParsedAlready.isEmpty()) {  //if parsed already list is empty then show excuse toast
+            if (!mAlreadyCreate) {  //flag to don't create list again
+                int flag2 = -1;  //flag that output only new item's in a list
+                for (int i = 0; i < 5; i++) {  //output five day's
+                    int flag1 = 0;  //flag that show a new day
                     //Creating support blocks
-                    ScheduleItems c1 = new ScheduleItems();
-                    c1.setThereSupport(true);
-                    c1.setDayName(i);
-                    Log.d("CR", "+support" + Integer.toString(i));
-                    mScheduleItems.add(c1);
-                    for (int j = 0; j < 6; j++) {
-                        flag2++;
-                        ScheduleItems c = mParsedAlready.get(flag2);
+                    ScheduleItems c1 = new ScheduleItems();  //create new Item
+                    c1.setThereSupport(true);  //set that it's be a support block
+                    c1.setDayName(i);  //set day name
+                 //   Log.d("CR", "+support" + Integer.toString(i));
+                    mScheduleItems.add(c1);  //added to a list
+                    for (int j = 0; j < 6; j++) {  //be maximum 6 lessons
+                        flag2++;  //increase flag of number of items
+                        ScheduleItems c = mParsedAlready.get(flag2);  //getted from pre-parsed list
                         if (c.getNumberOfPara() < flag1) {  //Stop output elements of day if new day started
-                            flag2--;
+                            flag2--;  //if not justify return
                             break;
                         }
-                        flag1 = c.getNumberOfPara();
-                        c.setTextureBlock(mSetTexture());
-                        c.setThereSupport(false);
-                        Log.d("CR", "+general" + Integer.toString(i));
-                        mScheduleItems.add(c);
+                        flag1 = c.getNumberOfPara();  //get number of lessons
+                        c.setTextureBlock(mSetTexture());  //set Texture of 2 variant
+                        c.setThereSupport(false);  //set that block be general block
+                   //     Log.d("CR", "+general" + Integer.toString(i));
+                        mScheduleItems.add(c);  //added to list
                     }
-
                 }
              /*   int flag1 = -1, flag2 = -1;
                 for (int i = 0; i < 30; i++) {
@@ -95,9 +100,19 @@ public class ScheduleLab {
                     }
                     mScheduleItems.add(c);
                 } */
-                mAlreadyCreate = true;
+                mAlreadyCreate = true;  //set flag that list be already created
             }
-        return mScheduleItems;
+            return mScheduleItems;    //return list
+        }
+        else {
+            //In this place i must do a report, that json loaded have some warnings
+
+            //if we don't have a list make excuse toast
+         //   Toast.makeText(mAppContext,
+         //           "Sorry, but json don't loaded! Please check your internet connection and try again!",
+         //           Toast.LENGTH_SHORT).show();
+            return null;    //and return null
+        }
     }
 
     public ScheduleItems getScheduleItem(UUID id) {

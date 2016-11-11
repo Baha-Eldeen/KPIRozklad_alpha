@@ -3,52 +3,21 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:showDividers="none"
-              android:adjustViewBounds="true"
-              android:scaleType="fitXY"
-              android:layout_y="-1dip">
+              android:showDividers="none">
 
     <LinearLayout
         android:id="@+id/general_list_layout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/rec2"
-        android:showDividers="none"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY">
+        android:background="@drawable/rec2">
 
-        <LinearLayout
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="15dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".42"
-                android:background="@drawable/line_active3"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".16"
-                android:background="@drawable/circle_line_center"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".42"
-                android:background="@drawable/line_active3"/>
-
-        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/linear_layout_with_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -57,11 +26,14 @@
                 android:layout_alignParentStart="true">
 
                 <TextView
+                    android:lines="1"
+                    android:scrollHorizontally="true"
+                    android:ellipsize="end"
                     android:id="@+id/list_subject_name"
                     android:textStyle="normal|bold"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="@color/textColorPrimary"
                     android:text="Subject name"
                     style="@style/TextIN"/>
@@ -89,7 +61,7 @@
                         android:textStyle="normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:textColor="@color/textColorPrimary"
                         android:text="Teacher N. M."
                         style="@style/TextIN"/>
@@ -99,7 +71,7 @@
                 <TextView
                     android:layout_alignParentRight="true"
                     android:textColor="@color/leftMinutes"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_width="wrap_content"
@@ -133,7 +105,7 @@
                             android:textStyle="normal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:textColor="@color/textColorPrimary"
                             android:text="9:30 - 10:45"
                             style="@style/TextIN"/>
@@ -146,7 +118,7 @@
                         android:textStyle="normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:textColor="@color/textColorPrimary"
                         android:text="Practice 1"
                         style="@style/TextIN"
@@ -172,7 +144,7 @@
                             android:textStyle="normal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:textColor="@color/textColorPrimary"
                             android:text="301-18"
                             style="@style/TextIN"/>
