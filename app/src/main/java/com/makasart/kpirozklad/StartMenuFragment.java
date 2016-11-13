@@ -1,36 +1,33 @@
 package com.makasart.kpirozklad;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Serializable;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 /**
  * Created by Maxim on 31.10.2016.
@@ -42,22 +39,28 @@ public class StartMenuFragment extends Fragment {
     private LinearLayout circle5, ln1, ln2, ln3, gen1;
     private boolean mIsPrepare = false;
     private JsonParser jsonParser;
-    Handler mHandler;
+    private Handler mHandler;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.start_menu_fragment, container, false);
         mIsPrepare = false;
-        mHandler = new Handler() {
-            public void handleMessage(android.os.Message msg) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        (String) msg.obj, Toast.LENGTH_LONG).show();
-            }
-
-        };
         PrepareBeforeStart();
-        firstLoadJson();
+        jsonParser = new JsonParser(getActivity().getApplicationContext());
+        mHandler = new mOwnHandler(getActivity().getApplicationContext());
+        //this code will be uncommented in future(it work:D)
+      //  if(!checkIsFile(getActivity().getApplicationContext())) {
+            //mHandler = new mOwnHandler(getActivity().getApplicationContext());
+            firstLoadJson();
+     /*   } else {
+     createHandleMessage("Json file is already created");
+         //   Message msg = Message.obtain(); // Creates an new Message instance
+         //   msg.obj = message; // Put the string into Message, into "obj" field.
+         //   msg.setTarget(mHandler); // Set the Handler
+         //   msg.sendToTarget(); //Send the message
+           // Toast.makeText(getActivity().getApplicationContext(),
+           //         "Json file is already created", Toast.LENGTH_LONG);
+        } */
         seeall = (RelativeLayout)mView.findViewById(R.id.relativelayout_seeall);
         seeall.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -89,6 +92,41 @@ public class StartMenuFragment extends Fragment {
             }
         });
         return mView;
+    }
+
+    private boolean checkIsFile(Context appContext) {
+        boolean result = false;
+        BufferedReader reader = null;  //buffered reader need to read information
+        try {
+            InputStream input = appContext.openFileInput("kpi_ip_63b");  //open file in working directory
+            reader = new BufferedReader(new InputStreamReader(input));  //input stream if json file
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            result = false;
+        } finally {
+            if (reader != null) {    //closed input streams
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                jsonParser.mLoad = true;
+                jsonParser.mSave = true;
+                return true;
+            }
+        }
+        return result;
+    }
+
+    private static class mOwnHandler extends Handler {
+        Context appContext;
+        mOwnHandler(Context c) {
+            appContext = c;
+        }
+        public void handleMessage(android.os.Message msg) {
+            Toast.makeText(appContext,
+                    (String) msg.obj, Toast.LENGTH_LONG).show();
+        }
     }
 
     private void PrepareBeforeStart() {
@@ -128,28 +166,35 @@ public class StartMenuFragment extends Fragment {
         }
     }
 
-    private void firstLoadJson() {
-        //Create custom json parser
-        jsonParser = new JsonParser(getActivity().getApplicationContext());
-        String message = "Started load json! Please wait to next toast!";
+    private void createHandleMessage(String message) {
         Message msg = Message.obtain(); // Creates an new Message instance
         msg.obj = message; // Put the string into Message, into "obj" field.
         msg.setTarget(mHandler); // Set the Handler
         msg.sendToTarget(); //Send the message
+    }
+
+    private void firstLoadJson() {
+        //Create custom json parser
       //  mHandler.sendMessage("Started load json! Please wait to next toast!");
      //   Toast.makeText(getActivity().getApplicationContext(),
      //           "Started load json! Please wait to next toast!", Toast.LENGTH_LONG).show();
-        jsonParser.loadJsonFile();
         new Thread(new Runnable() {
             @Override
             public void run() {
+                createHandleMessage("Started load json! Please wait to next toast!");
+           //     Message msg = Message.obtain(); // Creates an new Message instance
+           //     msg.obj = message; // Put the string into Message, into "obj" field.
+           //     msg.setTarget(mHandler); // Set the Handler
+           //     msg.sendToTarget(); //Send the message
+                jsonParser.loadJsonFile();
+
                 for (int i = 0; i < 80; i++) {  //thread where we wait to load json and then saved it
                     if (jsonParser.mLoad) {  //check that json loaded
-                        String message = "Json loaded! Please wait to next toast!";
-                        Message msg = Message.obtain(); // Creates an new Message instance
-                        msg.obj = message; // Put the string into Message, into "obj" field.
-                        msg.setTarget(mHandler); // Set the Handler
-                        msg.sendToTarget(); //Send the message
+                        createHandleMessage("Json loaded! Please wait to next toast!");
+                     //   msg = Message.obtain(); // Creates an new Message instance
+                     //   msg.obj = message; // Put the string into Message, into "obj" field.
+                     //   msg.setTarget(mHandler); // Set the Handler
+                     //   msg.sendToTarget(); //Send the message
                       //  Toast.makeText(getActivity().getApplicationContext(),
                       //          "Json loaded! Please wait to next toast!", Toast.LENGTH_SHORT).show();
                         try {  //saved json in file if that saved
@@ -165,18 +210,18 @@ public class StartMenuFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
+
                 if (!jsonParser.mLoad) {  //if in result json don't save show this toast as excuse
-                    String message = "Sorry, but json don't load! Please, check your internet connection and try again!";
-                    Message msg = Message.obtain(); // Creates an new Message instance
-                    msg.obj = message; // Put the string into Message, into "obj" field.
-                    msg.setTarget(mHandler); // Set the Handler
-                    msg.sendToTarget(); //Send the message
+                    createHandleMessage("Sorry, but json don't load! Please, check your internet connection and try again!");
+                 //   msg = Message.obtain(); // Creates an new Message instance
+                 //   msg.obj = message; // Put the string into Message, into "obj" field.
+                 //   msg.setTarget(mHandler); // Set the Handler
+                 //   msg.sendToTarget(); //Send the message
                    // Toast.makeText(getActivity().getApplicationContext(),
                    //         "Sorry, but json don't load! Please, check your internet connection and try again!",
                    //         Toast.LENGTH_SHORT).show();
                 }
             }
         }).start();
-        //
     }
 }

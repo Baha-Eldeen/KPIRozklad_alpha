@@ -19,6 +19,10 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 public class StartMenuActivity extends AppCompatActivity
@@ -29,6 +33,8 @@ public class StartMenuActivity extends AppCompatActivity
     public int widthPixels;
     public int heightPixels;
     public static int orientation;
+
+    private TextView GeneralTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,10 +129,36 @@ public class StartMenuActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Navigate to general form
+        navigateToGeneral();
+
+        View mhView =  navigationView.getHeaderView(0);
+        GeneralTextView = (TextView)mhView.findViewById(R.id.from_drawer_to_general);
+        GeneralTextView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
+                                R.anim.see_all_start);
+                        GeneralTextView.startAnimation(animation);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        Animation animation2 = AnimationUtils.loadAnimation(getApplicationContext(),
+                                R.anim.see_all_end);
+                        navigateToGeneral();
+                        GeneralTextView.startAnimation(animation2);
+                        onBackPressed();
+                }
+                return false;
+            }
+        });
+    }
+
+    private void navigateToGeneral() {
         FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame,
-                    new StartMenuFragment())
-                    .commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame,
+                new StartMenuFragment())
+                .commit();
     }
 
     @Override
@@ -172,7 +204,8 @@ public class StartMenuActivity extends AppCompatActivity
         if (id == R.id.nav_schedule) {
             Intent mIntent = new Intent(this, ScheduleActivity.class);
             startActivity(mIntent);
-            return true;
+            onBackPressed();  //think, that be method to close drawer menu
+            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_in_down);
         } else if (id == R.id.nav_tasks) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,
                     new TasksFragment())
