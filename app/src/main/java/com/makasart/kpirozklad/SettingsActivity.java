@@ -90,6 +90,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * Helper method to determine if the device has an extra-large screen. For
      * example, 10" tablets are extra-large.
      */
+
+
     private static boolean isXLargeTablet(Context context) {
         return (context.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_XLARGE;
@@ -131,6 +133,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // Show the Up button in the action bar.
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            startActivity(new Intent(getApplicationContext(), StartMenuActivity.class));
+            overridePendingTransition(R.anim.slide_from_left, R.anim.slide_from_right);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
