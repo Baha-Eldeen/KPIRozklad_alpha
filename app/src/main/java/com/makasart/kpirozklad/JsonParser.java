@@ -28,7 +28,6 @@ import java.util.ArrayList;
 public class JsonParser {
     private String jsonString = null;   //in this line json saved
     private ArrayList<ScheduleItems> mScheduleItems = new ArrayList<ScheduleItems>();   //pre-json list
-    public boolean mWait = false;  //wait json on loaded (deprecated)
     public static final String mFileName = "kpi_ip_63";  //name of group (in future be dynamic)
     public boolean mLoad = false;  //load json flag
     public boolean mSave = false;  //save json flag
@@ -107,23 +106,23 @@ public class JsonParser {
                 JSONObject js_week = (JSONObject) js_all.get(Integer.toString(WEEK)); //pull week
                 for (int DAY = 1; DAY < 6; DAY++) {  //wee must read every day
                     JSONObject js_day = (JSONObject) js_week.get(Integer.toString(DAY)); //pull day
-                    int mNumberofPara = 0;  //flag to report in "Number of para" in SheduleItems.class
                     for (int LES = 1; LES < 6; LES++) {  //we must read every lesson
                         if (!js_day.isNull(Integer.toString(LES))) {  //check that day object have lessons
-                            mNumberofPara++;  //increase number of para
+                           // Log.d("NOP", Integer.toString(mNumberofPara));
                             JSONObject js_less = (JSONObject) js_day.get(Integer.toString(LES)); //pull less
                             ScheduleItems object1;  //init object that int future be putted in array list
                             object1 = mDiscipline_Name(js_less, LES);  //put discipline name
                             object1 = mTeacher_Name(js_less, LES, object1);  //put teacher name
                             object1 = mBuilding(js_less, LES, object1);  //put name of building
-                            object1.setNumberOfPara(mNumberofPara);  //set number of para
+                            object1.setNumberOfPara(LES);  //set number of para
+                            object1.setDayOfWeek(DAY);  //set number of day
+                            object1.setWeek(WEEK);  //set number of week
                             if (object1.getTitle() != null) { //if no title then item no add in array list
-                                Log.d("UUUI", "someParsing: new item");
+                              //  Log.d("UUUI", "someParsing: new item");
                                 mScheduleItems.add(object1);
                             }
                         }
                     }
-                    mNumberofPara = 0;  //zero out flag in end of cycle
                 }
             }
         } catch (JSONException e) {

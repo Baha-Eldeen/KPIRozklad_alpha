@@ -19,6 +19,8 @@ public class ScheduleItems {
     private boolean mTextureBlock;  //What is a texture now
     private boolean mIsThereSupport;  //This is Schedule or support block
     private String mDayName;  //If there is support block set it name "Monday, Thursday"
+    private int DayOfWeek; //day of week
+    private int Week; //number of week
 
     public ScheduleItems() {
         mID = UUID.randomUUID();
@@ -123,10 +125,32 @@ public class ScheduleItems {
             case 4:
                 mDayName = "FRIDAY";
                 break;
+            case 5:
+                mDayName = "SATURDAY";
+                break;
+            case 6:
+                mDayName = "SUNDAY";
+                break;
             default:
                 mDayName = "UNKNOWN";
                 break;
         }
         Log.d("CR", mDayName);
+    }
+
+    public int getDayOfWeek() {
+        return DayOfWeek;
+    }
+
+    public void setDayOfWeek(int dayOfWeek) {
+        DayOfWeek = dayOfWeek;
+    }
+
+    public int getWeek() {
+        return Week;
+    }
+
+    public void setWeek(int week) {
+        Week = week;
     }
 }

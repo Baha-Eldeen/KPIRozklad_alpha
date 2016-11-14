@@ -55,8 +55,36 @@ public class ScheduleLab {
     public ArrayList<ScheduleItems> getScheduleItems() {
         if (!mParsedAlready.isEmpty()) {  //if parsed already list is empty then show excuse toast
             if (!mAlreadyCreate) {  //flag to don't create list again
-                int flag2 = -1;  //flag that output only new item's in a list
-                for (int i = 0; i < 5; i++) {  //output five day's
+                int flag2 = 0;
+                int mWeek = 0, mDay = 0;
+                for (int i = 0; i < 7; i++) {
+                    ScheduleItems c = mParsedAlready.get(flag2);
+                    //////
+                    //CUSTOM SET WEEK = 1. REPLACE THIS TO DO SCHEDULE FOR A WEEK
+                    //////
+                    if (c.getWeek() == 1) {
+                        if (c.getDayOfWeek() > mDay) {
+                            mDay = c.getDayOfWeek();
+                            //then create support block
+                            ScheduleItems c1 = new ScheduleItems();  //create new Item
+                            c1.setThereSupport(true);  //set that it's be a support block
+                            c1.setDayName(mDay - 1);  //set day name
+                            //   Log.d("CR", "+support" + Integer.toString(i));
+                            mScheduleItems.add(c1);  //added to a list
+                        }
+                        for (int j = 0; j < 7; j++) {
+                            ScheduleItems c2 = mParsedAlready.get(flag2);
+                            if (c2.getDayOfWeek() == mDay && c2.getWeek() == 1) {
+                                c2.setTextureBlock(mSetTexture());  //set Texture of 2 variant
+                                c2.setThereSupport(false);  //set that block be general block
+                                mScheduleItems.add(c2);  //added to list
+                                flag2++;
+                            }
+                        }
+                    }
+                }
+          /*      int flag2 = -1;  //flag that output only new item's in a list
+                for (int i = 0; i < 7; i++) {  //output five day's
                     int flag1 = 0;  //flag that show a new day
                     //Creating support blocks
                     ScheduleItems c1 = new ScheduleItems();  //create new Item
@@ -77,7 +105,7 @@ public class ScheduleLab {
                    //     Log.d("CR", "+general" + Integer.toString(i));
                         mScheduleItems.add(c);  //added to list
                     }
-                }
+                }  */
              /*   int flag1 = -1, flag2 = -1;
                 for (int i = 0; i < 30; i++) {
                     ScheduleItems c = new ScheduleItems();
