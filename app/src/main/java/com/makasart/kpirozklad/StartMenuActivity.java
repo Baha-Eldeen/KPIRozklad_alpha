@@ -187,6 +187,9 @@ public class StartMenuActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent mIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(mIntent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
             return true;
         }
 
