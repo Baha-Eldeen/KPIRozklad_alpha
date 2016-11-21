@@ -1,6 +1,7 @@
 package com.makasart.kpirozklad;
 
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -24,6 +25,13 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class StartMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +41,7 @@ public class StartMenuActivity extends AppCompatActivity
     public int widthPixels;
     public int heightPixels;
     public static int orientation;
+    private boolean mLoad = false;
 
     private TextView GeneralTextView;
 
@@ -205,10 +214,16 @@ public class StartMenuActivity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_schedule) {
-            Intent mIntent = new Intent(this, ScheduleActivity.class);
-            startActivity(mIntent);
-            onBackPressed();  //think, that be method to close drawer menu
-            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_in_down);
+            checkIsFile(getApplicationContext());
+            if (mLoad) {
+                Intent mIntent = new Intent(this, ScheduleActivity.class);
+                startActivity(mIntent);
+                onBackPressed();  //think, that be method to close drawer menu
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_in_down);
+            } else {
+                Toast.makeText(this, "Sorry, check your Internet connection!",
+                        Toast.LENGTH_SHORT);
+            }
         } else if (id == R.id.nav_tasks) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,
                     new TasksFragment())
@@ -238,5 +253,28 @@ public class StartMenuActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private boolean checkIsFile(Context appContext) {
+        boolean result = false;
+        BufferedReader reader = null;  //buffered reader need to read information
+        try {
+            InputStream input = appContext.openFileInput("kpi_ip_63");  //open file in working directory
+            reader = new BufferedReader(new InputStreamReader(input));  //input stream if json file
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            result = false;
+        } finally {
+            if (reader != null) {    //closed input streams
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mLoad = true;
+                return true;
+            }
+        }
+        return result;
     }
 }

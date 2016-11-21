@@ -94,7 +94,7 @@ public class StartMenuFragment extends Fragment {
         return mView;
     }
 
-    private boolean checkIsFile(Context appContext) {
+ /*   private boolean checkIsFile(Context appContext) {
         boolean result = false;
         BufferedReader reader = null;  //buffered reader need to read information
         try {
@@ -110,13 +110,11 @@ public class StartMenuFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                jsonParser.mLoad = true;
-                jsonParser.mSave = true;
                 return true;
             }
         }
         return result;
-    }
+    }    */
 
     private static class mOwnHandler extends Handler {
         Context appContext;
@@ -189,6 +187,10 @@ public class StartMenuFragment extends Fragment {
                 jsonParser.loadJsonFile();
 
                 for (int i = 0; i < 80; i++) {  //thread where we wait to load json and then saved it
+                    if (jsonParser.mWrongConnection) {
+                        createHandleMessage("Sorry, but you have wrong Internet connection! Check and try again!");
+                        break;
+                    }
                     if (jsonParser.mLoad) {  //check that json loaded
                         createHandleMessage("Json loaded! Please wait to next toast!");
                      //   msg = Message.obtain(); // Creates an new Message instance

@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class ScheduleLab {
     private ArrayList<ScheduleItems> mScheduleItems = new ArrayList<ScheduleItems>();
-    private ArrayList<ScheduleItems> mParsedAlready;
+    private ArrayList<ScheduleItems> mParsedAlready = null;
     private Context mAppContext;
     private int mNumberWhatBlock = 0;
     private boolean mAlreadyCreate = false;
@@ -37,7 +37,9 @@ public class ScheduleLab {
         try {
             JSONObject jsOBJ = jsPars.readJsonFile();
             jsPars.someParsing(jsOBJ);
-            mParsedAlready = jsPars.getScheduleItems();
+            if (!jsPars.getScheduleItems().isEmpty()) {
+                mParsedAlready = jsPars.getScheduleItems();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -161,3 +163,4 @@ public class ScheduleLab {
         }
     }
 }
+

@@ -17,8 +17,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.RuleBasedCollator;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +31,7 @@ public class JsonParser {
     public static final String mFileName = "kpi_ip_63";  //name of group (in future be dynamic)
     public boolean mLoad = false;  //load json flag
     public boolean mSave = false;  //save json flag
+    public boolean mWrongConnection = false;  //status of connection
     private Context appContext;  //app context need to save json file in working directory
 
     public ArrayList<ScheduleItems> getScheduleItems() {  //return serialized array list (pre-json)
@@ -42,6 +43,7 @@ public class JsonParser {
         BufferedReader reader = null;  //buffered reader need to read information
         JSONObject jsObj = null;  //returned json object
         try {
+            Log.d("URLA", "Read json file");
             InputStream input = appContext.openFileInput(mFileName);  //open file in working directory
             reader = new BufferedReader(new InputStreamReader(input));  //input stream if json file
             StringBuilder mjsonString = new StringBuilder();  //string builder need to build string line from json file
@@ -64,15 +66,19 @@ public class JsonParser {
     public void saveJsonFile() throws JSONException, IOException {
         Writer writer = null;   //init writer
         try {
+            Log.d("URLA", "Save json file");
             //open private file in working directory
             OutputStream out = appContext.openFileOutput(mFileName, Context.MODE_PRIVATE);
             writer = new OutputStreamWriter(out);
             writer.write(jsonString);
-        } finally {
+            mSave = true;  //to report that json saved
+        } catch (Exception e) {
+            mSave = false;
+        }
+        finally {
             if (writer != null) {    //closed output streams
                 writer.close();
             }
-            mSave = true;  //to report that json saved
         }
     }
 
@@ -83,10 +89,33 @@ public class JsonParser {
             public void run() {
                 try {
                     jsonString = readUrl("http://api.rozklad.hub.kpi.ua/groups/497/timetable.json");
+                    Log.d("EBAT!!!", jsonString);
+                    try {
+                        JSONObject jstest = new JSONObject(jsonString);
+                       // JSONArray jstest2 = new JSONArray(jsonString);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.d("EBAT!!!", "slovilo!");
+                        jsonString = null;
+                        mLoad = false;
+                        mWrongConnection = true;
+                    }
+                    if (jsonString.charAt(0) != '{') {
+                        Log.d("EBAT!!!", "Ebat kostil!");
+                        mLoad = false;
+                        mWrongConnection = true;
+                    }
+                    if (jsonString != null) {
+                        mLoad = true;   //to report that json load
+                        Log.d("URLA", "Load json file");
+                    } else {
+                        mLoad = false;
+                        mWrongConnection = true;
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    mLoad = false;  //to report that json don't load
                 }
-                mLoad = true;  //to report that json load
             }
         }).start();   //started already
 
@@ -202,14 +231,27 @@ public class JsonParser {
         BufferedReader reader = null; //initialize READ BUFFER
         try {
             URL url = new URL(urlString); //have url
-            reader = new BufferedReader(new InputStreamReader(url.openStream())); //read from Stream
-            StringBuffer buffer = new StringBuffer(); //initialize String Buffer
-            int read;
-            char[] chars = new char[1024];
-            while ((read = reader.read(chars)) != -1) //on null pointer stop
-                buffer.append(chars, 0, read);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.connect();
+            int code = connection.getResponseCode();
+            if (code == HttpURLConnection.HTTP_OK) {
+                Log.d("URLA", Integer.toString(code));
+                reader = new BufferedReader(new InputStreamReader(url.openStream())); //read from Stream
+                StringBuffer buffer = new StringBuffer(); //initialize String Buffer
+                int read;
+                char[] chars = new char[1024];
+                while ((read = reader.read(chars)) != -1) //on null pointer stop
+                    buffer.append(chars, 0, read);
 
-            return buffer.toString(); //return String
+                return buffer.toString(); //return String
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            Log.d("URLA", e.toString());
+            e.printStackTrace();
+            return null;
         } finally {
             if (reader != null)
                 reader.close(); //close reader
