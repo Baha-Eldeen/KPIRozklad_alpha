@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,6 +41,7 @@ public class StartMenuFragment extends Fragment {
     private LinearLayout circle5, ln1, ln2, ln3, gen1;
     private boolean mIsPrepare = false;
     private JsonParser jsonParser;
+    private GroupParser groupParser;
     private Handler mHandler;
 
     @Override
@@ -47,6 +50,7 @@ public class StartMenuFragment extends Fragment {
         mIsPrepare = false;
         PrepareBeforeStart();
         jsonParser = new JsonParser(getActivity().getApplicationContext());
+        groupParser = new GroupParser(getActivity().getApplicationContext());
         mHandler = new mOwnHandler(getActivity().getApplicationContext());
         //this code will be uncommented in future(it work:D)
       //  if(!checkIsFile(getActivity().getApplicationContext())) {
@@ -185,13 +189,14 @@ public class StartMenuFragment extends Fragment {
            //     msg.setTarget(mHandler); // Set the Handler
            //     msg.sendToTarget(); //Send the message
                 jsonParser.loadJsonFile();
+                groupParser.loadJsonFile();
 
                 for (int i = 0; i < 80; i++) {  //thread where we wait to load json and then saved it
-                    if (jsonParser.mWrongConnection) {
+                    if (jsonParser.mWrongConnection || groupParser.mWrongConnection) {
                         createHandleMessage("Sorry, but you have wrong Internet connection! Check and try again!");
-                        break;
+                        i = 79; //break the cycle
                     }
-                    if (jsonParser.mLoad) {  //check that json loaded
+                    if (jsonParser.mLoad && groupParser.mLoad) {  //check that json loaded
                         createHandleMessage("Json loaded! Please wait to next toast!");
                      //   msg = Message.obtain(); // Creates an new Message instance
                      //   msg.obj = message; // Put the string into Message, into "obj" field.
@@ -201,6 +206,7 @@ public class StartMenuFragment extends Fragment {
                       //          "Json loaded! Please wait to next toast!", Toast.LENGTH_SHORT).show();
                         try {  //saved json in file if that saved
                             jsonParser.saveJsonFile();
+                            groupParser.saveJsonFile();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -213,7 +219,7 @@ public class StartMenuFragment extends Fragment {
                     }
                 }
 
-                if (!jsonParser.mLoad) {  //if in result json don't save show this toast as excuse
+                if (!jsonParser.mLoad || !groupParser.mLoad) {  //if in result json don't save show this toast as excuse
                     createHandleMessage("Sorry, but json don't load! Please, check your internet connection and try again!");
                  //   msg = Message.obtain(); // Creates an new Message instance
                  //   msg.obj = message; // Put the string into Message, into "obj" field.

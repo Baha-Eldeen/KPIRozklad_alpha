@@ -237,9 +237,9 @@ public class StartMenuActivity extends AppCompatActivity
                     new TeachersFragment())
                     .commit();
         } else if (id == R.id.nav_settings) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame,
+         /*   fragmentManager.beginTransaction().replace(R.id.content_frame,
                     new SettingsFragment())
-                    .commit();
+                    .commit(); */
         } else if (id == R.id.nav_about) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,
                     new AboutUsFragment())
