@@ -20,14 +20,14 @@ public class SettingsLab {
 
     private static SettingsLab mSettingsLab;
 
-    private SettingsLab(Context appContext) {
+    public SettingsLab(Context appContext) {
         mAppContext = appContext;
     }
 
     public static SettingsLab get(Context c) {
-        if(mSettingsLab == null) {
+     //   if(mSettingsLab == null) {
             mSettingsLab = new SettingsLab(c.getApplicationContext());
-        }
+      //  }
         return mSettingsLab;
     }
 
