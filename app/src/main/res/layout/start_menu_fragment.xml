@@ -4,6 +4,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+
+
     <LinearLayout
         android:id="@+id/general_layout"
         android:layout_width="match_parent"
@@ -582,5 +584,11 @@
 
 
     </LinearLayout>
+
+    <FrameLayout
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frame_for_loading"/>
 
 </RelativeLayout>

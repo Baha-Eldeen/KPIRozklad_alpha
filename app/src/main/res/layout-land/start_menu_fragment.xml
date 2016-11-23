@@ -591,4 +591,10 @@
         </LinearLayout>
     </ScrollView>
 
+    <FrameLayout
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frame_for_loading"/>
+
 </LinearLayout>
