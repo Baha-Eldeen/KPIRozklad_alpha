@@ -181,8 +181,13 @@ public class StartMenuFragment extends Fragment {
             @Override
             public void run() {
                 createHandleMessage("Started load json! Please wait to next toast!");
-                FrameLayout fm = (FrameLayout) mView.findViewById(R.id.frame_for_loading);
-                fm.setVisibility(View.VISIBLE);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        FrameLayout fm = (FrameLayout) mView.findViewById(R.id.frame_for_loading);
+                        fm.setVisibility(View.VISIBLE);
+                    }
+                });
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.frame_for_loading,
                         new LoadingFragment())
@@ -201,11 +206,11 @@ public class StartMenuFragment extends Fragment {
                         try {  //saved json in file if that saved
                             jsonParser.saveJsonFile();
                             HideLoading();
+                            i = 79; //break the cycle
                          //   fm.setVisibility(View.INVISIBLE);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        i = 79; //break the cycle
                     }
                     try {
                         Thread.sleep(250);  //wait 80*250 mls in total 20 sec in maximum

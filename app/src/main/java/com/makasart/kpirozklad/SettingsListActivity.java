@@ -1,10 +1,13 @@
 package com.makasart.kpirozklad;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -40,6 +43,7 @@ public class SettingsListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_list_activity);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listView = (ListView)findViewById(R.id.listview);
         editText = (EditText)findViewById(R.id.txtsearch);
         someNewParse();
@@ -85,6 +89,37 @@ public class SettingsListActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.start_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Intent mIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(mIntent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
+            return true;
+        } else if (id == android.R.id.home) {
+            Intent mIntent = new Intent(getApplicationContext(), StartMenuActivity.class);
+            startActivity(mIntent);
+            overridePendingTransition(R.anim.slide_from_up, R.anim.slide_from_down);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void someNewParse() {
         GroupParser gp = new GroupParser(getApplicationContext());
         try {
