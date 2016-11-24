@@ -71,7 +71,7 @@ public class SettingsListActivity extends AppCompatActivity {
 
                 for (Iterator<SettingsItems> iterator = mSettingsItems.iterator(); iterator.hasNext(); ) {
                     SettingsItems value = iterator.next();
-                    if (!value.getGroupName().startsWith(textToSearch)) {
+                    if (!value.getGroupName().toUpperCase().startsWith(textToSearch.toUpperCase())) {
                         iterator.remove();
                     }
                 }

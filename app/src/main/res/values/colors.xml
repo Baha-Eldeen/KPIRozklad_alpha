@@ -6,4 +6,7 @@
     <color name="colorMenu">#1e2829</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="leftMinutes">#37c53d</color>
+    <color name="colorCoffee">#f1f0f8</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorRed">#ff3434</color>
 </resources>

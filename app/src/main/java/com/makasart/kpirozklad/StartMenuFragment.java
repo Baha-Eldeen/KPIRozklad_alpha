@@ -193,17 +193,19 @@ public class StartMenuFragment extends Fragment {
                     if (jsonParser.mWrongConnection) {
                         createHandleMessage("Sorry, but you have wrong Internet connection! Check and try again!");
                         i = 79; //break the cycle
-                        fm.setVisibility(View.INVISIBLE);
+                        HideLoading();
+                     //   fm.setVisibility(View.INVISIBLE);
                     }
                     if (jsonParser.mLoad) {  //check that json loaded
                         createHandleMessage("Json loaded! Please wait to next toast!");
                         try {  //saved json in file if that saved
                             jsonParser.saveJsonFile();
-                            fm.setVisibility(View.INVISIBLE);
+                            HideLoading();
+                         //   fm.setVisibility(View.INVISIBLE);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        break;
+                        i = 79; //break the cycle
                     }
                     try {
                         Thread.sleep(250);  //wait 80*250 mls in total 20 sec in maximum
@@ -213,10 +215,24 @@ public class StartMenuFragment extends Fragment {
                 }
 
                 if (!jsonParser.mLoad) {  //if in result json don't save show this toast as excuse
-                    createHandleMessage("Sorry, but json don't load! Please, check your internet connection and try again!");
-                    fm.setVisibility(View.INVISIBLE);
+                    try {
+                        createHandleMessage("Sorry, but json didn't load! Please, check your internet connection and try again!");
+                        HideLoading();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }).start();
+    }
+
+    private void HideLoading() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                FrameLayout fm = (FrameLayout) mView.findViewById(R.id.frame_for_loading);
+                fm.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 }

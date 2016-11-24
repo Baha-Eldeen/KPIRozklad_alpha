@@ -237,10 +237,13 @@ public class StartMenuActivity extends AppCompatActivity
                     new TeachersFragment())
                     .commit();
         } else if (id == R.id.nav_settings) {
-            Intent mIntent = new Intent(this, SettingsListActivity.class);
+          /*  Intent mIntent = new Intent(this, SettingsListActivity.class);
             startActivity(mIntent);
             onBackPressed();  //think, that be method to close drawer menu
-            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_in_down);
+            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_in_down);  */
+            fragmentManager.beginTransaction().replace(R.id.content_frame,
+                    new SettingsFragment())
+                    .commit();
         } else if (id == R.id.nav_about) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,
                     new AboutUsFragment())
