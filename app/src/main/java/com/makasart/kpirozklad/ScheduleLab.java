@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.Vector;
 
 /**
  * Created by Maxim on 02.11.2016.
@@ -21,6 +22,7 @@ public class ScheduleLab {
     private Context mAppContext;
     private int mNumberWhatBlock = 0;
     private boolean mAlreadyCreate = false;
+    private Vector<Integer> circleTime = new Vector<>();
 
     private static ScheduleLab mScheduleLab;
 
@@ -74,6 +76,7 @@ public class ScheduleLab {
                             //   Log.d("CR", "+support" + Integer.toString(i));
                             mScheduleItems.add(c1);  //added to a list
                         }
+                        int numberof = 0;
                         for (int j = 0; j < 7; j++) {
                             ScheduleItems c2 = mParsedAlready.get(flag2);
                             if (c2.getDayOfWeek() == mDay && c2.getWeek() == 1) {
@@ -81,16 +84,33 @@ public class ScheduleLab {
                                 c2.setThereSupport(false);  //set that block be general block
                                 mScheduleItems.add(c2);  //added to list
                                 flag2++;
+                                numberof++;
                             }
                         }
+                        circleTime.add(numberof);
                     }
                 }
                 mAlreadyCreate = true;  //set flag that list be already created
             }
+            setCircle();
             return mScheduleItems;    //return list
         }
         else {
             return null;    //and return null
+        }
+    }
+
+    private void setCircle() {
+        int flag1 = 1;  //flag of general mass
+        for(int i = 0; i < circleTime.size(); i++) {
+            if(circleTime.get(i) != 0) {
+                mScheduleItems.get(flag1).setSetCircle(1);
+                if(circleTime.get(i) == 1) {
+                    break;
+                }
+                mScheduleItems.get(flag1+circleTime.get(i)-1).setSetCircle(3);
+                flag1 += circleTime.get(i) + 1;
+            }
         }
     }
 

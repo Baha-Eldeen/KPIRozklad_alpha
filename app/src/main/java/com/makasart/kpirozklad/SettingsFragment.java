@@ -72,6 +72,7 @@ public class SettingsFragment extends Fragment{
                         createHandleMessage("Sorry, but you have wrong Internet connection! Check and try again!");
                         i = 159; //break the cycle
                         HideLoading();
+                        break;
                         //   fm.setVisibility(View.INVISIBLE);
                     }
                     if (mGroupParser.mLoad) {  //check that json loaded
@@ -84,6 +85,7 @@ public class SettingsFragment extends Fragment{
                             startActivity(mIntent);
                             getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
                             HideLoading();
+                            break;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

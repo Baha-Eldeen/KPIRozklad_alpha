@@ -31,7 +31,7 @@
         </activity>
         <activity
             android:name=".SettingsListActivity"
-            android:label="Settings">
+            android:label="Choose Group">
         </activity>
     </application>
 

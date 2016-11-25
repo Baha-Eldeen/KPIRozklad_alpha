@@ -76,7 +76,7 @@ public class ScheduleFragment extends ListFragment {
                 //this block is setting current text in blocks
                 //set Title and number
                 mSubjectName = (TextView) convertView.findViewById(R.id.list_subject_name);
-                mSubjectName.setText(Integer.toString(c.getNumberOfPara()) + " " + c.getTitle());
+                mSubjectName.setText(Integer.toString(c.getNumberOfPara()) + ". " + c.getTitle());
                 //set Teacher name
                 mTeacherName = (TextView) convertView.findViewById(R.id.list_teacher_name);
                 mTeacherName.setText(c.getTeacherName());
@@ -89,7 +89,17 @@ public class ScheduleFragment extends ListFragment {
                 //set Time
                 TextView mTime = (TextView) convertView.findViewById(R.id.list_time);
                 mTime.setText(c.getTime(c.getNumberOfPara()));
-            //    Log.d("FUCK", "Create general");
+                LinearLayout line1 = (LinearLayout) convertView.findViewById(R.id.lineact1);
+                LinearLayout line2 = (LinearLayout) convertView.findViewById(R.id.lineact2);
+                if(c.getSetCircle() == 1) {
+                    line1.setVisibility(View.INVISIBLE);
+                }
+                if(c.getSetCircle() == 3) {
+                    line2.setVisibility(View.INVISIBLE);
+                }
+                TextView mTimeLeft = (TextView) convertView.findViewById(R.id.timeleft);
+                mTimeLeft.setVisibility(View.INVISIBLE);
+                ///
             }
             return convertView;
         }

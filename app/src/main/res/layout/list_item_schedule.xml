@@ -5,11 +5,48 @@
               android:layout_height="wrap_content"
               android:showDividers="none">
 
+
+
     <LinearLayout
         android:id="@+id/general_list_layout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/rec2">
+        android:background="@drawable/rec2"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/layout_with_circle_middle"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="18dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".41"
+                android:background="@drawable/line_active3"
+                android:id="@+id/lineact1"
+                android:orientation="vertical"/>
+
+            <LinearLayout
+                android:id="@+id/Relative_layout_with_circle_middle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".18"
+                android:background="@drawable/circle_line_center"
+                android:orientation="vertical"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".41"
+                android:id="@+id/lineact2"
+                android:background="@drawable/line_active3"
+                android:orientation="vertical"/>
+
+        </LinearLayout>
 
 
         <RelativeLayout
@@ -69,6 +106,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/timeleft"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/leftMinutes"
                     android:textSize="15sp"

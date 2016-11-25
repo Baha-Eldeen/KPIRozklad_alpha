@@ -21,6 +21,15 @@ public class ScheduleItems {
     private String mDayName;  //If there is support block set it name "Monday, Thursday"
     private int DayOfWeek; //day of week
     private int Week; //number of week
+    private int setCircle = 2; //set Circle type //1-open 2-middle 3-close//
+
+    public int getSetCircle() {
+        return setCircle;
+    }
+
+    public void setSetCircle(int setCircle) {
+        this.setCircle = setCircle;
+    }
 
     public ScheduleItems() {
         mID = UUID.randomUUID();

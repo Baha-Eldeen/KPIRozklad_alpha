@@ -199,6 +199,7 @@ public class StartMenuFragment extends Fragment {
                         createHandleMessage("Sorry, but you have wrong Internet connection! Check and try again!");
                         i = 79; //break the cycle
                         HideLoading();
+                        break;
                      //   fm.setVisibility(View.INVISIBLE);
                     }
                     if (jsonParser.mLoad) {  //check that json loaded
@@ -207,6 +208,7 @@ public class StartMenuFragment extends Fragment {
                             jsonParser.saveJsonFile();
                             HideLoading();
                             i = 79; //break the cycle
+                            break;
                          //   fm.setVisibility(View.INVISIBLE);
                         } catch (Exception e) {
                             e.printStackTrace();
