@@ -76,11 +76,11 @@ public class SettingsFragment extends Fragment{
                         try {  //saved json in file if that saved
                             mGroupParser.saveJsonFile();
                             i = 159; //break the cycle
-                            HideLoading();
 
                             Intent mIntent = new Intent(getActivity().getApplicationContext(), SettingsListActivity.class);
                             startActivity(mIntent);
                             getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
+                            HideLoading();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

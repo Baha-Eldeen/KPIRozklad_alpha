@@ -15,6 +15,7 @@ public class SettingsItems {
     private int mGroupId; //Id of a group
     private int mOkr; //academic degree
     private int mType;  //type of learning
+    private boolean isChecked = false;  //show checked or not
 
     SettingsItems() {
         mID = UUID.randomUUID();
@@ -54,5 +55,13 @@ public class SettingsItems {
 
     public void setType(int type) {
         mType = type;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }

@@ -1,5 +1,6 @@
 package com.makasart.kpirozklad;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,15 +11,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,6 +47,7 @@ public class SettingsListActivity extends AppCompatActivity {
     EditText editText;
     SettingsAdapters mAdapter;
     private boolean isLogged = false;
+    private String groupName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +100,44 @@ public class SettingsListActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.start_menu, menu);
-        return true;
+    public static String searchWhatGroupNow(Context c) {
+        String groupName = "";
+        //read file with group name
+        try {
+            InputStream inputStream = c.openFileInput("config.txt");
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+                inputStream.close();
+                groupName = stringBuilder.toString();
+                Log.d("SettingsRewriteGroup", "Normal read");
+            }
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return groupName;
+    }
+
+    private void setGroupName(String data,Context context) {
+        //set file with group name
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("config.txt", Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+            Log.d("SettingsRewriteGroup", "Normal set");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -105,12 +148,7 @@ public class SettingsListActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent mIntent = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivity(mIntent);
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
-            return true;
-        } else if (id == android.R.id.home) {
+         if (id == android.R.id.home) {
             Intent mIntent = new Intent(getApplicationContext(), StartMenuActivity.class);
             startActivity(mIntent);
             overridePendingTransition(R.anim.slide_from_up, R.anim.slide_from_down);
@@ -126,6 +164,14 @@ public class SettingsListActivity extends AppCompatActivity {
             JSONArray newJS = gp.readJsonFile();
             gp.someParsing(newJS);
             mSettingsItemses = gp.getSettingsItems();
+            groupName = searchWhatGroupNow(getApplicationContext());
+            if (!groupName.equals("")) {
+                for (int i = 0; i < mSettingsItemses.size(); i++) {
+                    if (mSettingsItemses.get(i).getGroupName().equals(groupName)) {
+                        mSettingsItemses.get(i).setChecked(true);
+                    }
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -148,12 +194,34 @@ public class SettingsListActivity extends AppCompatActivity {
             super(getApplicationContext(), 0, settings);
         }
 
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            SettingsItems c = getItem(position);  //get item from position
+            final SettingsItems c = getItem(position);  //get item from position
             convertView = getLayoutInflater().inflate(R.layout.list_item_group, null);
             TextView txtView = (TextView)convertView.findViewById(R.id.textViewGroup);
             txtView.setText(c.getGroupName());
+            CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.checkbox_group);
+            if(c.isChecked()) {
+                checkBox.setChecked(true);
+                Log.d("SettingsRewriteGroup", "checked " + c.getGroupId());
+            }
+
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    for(int i = 0; i < mSettingsItemses.size(); i++) {
+                        if (mSettingsItemses.get(i).getID().equals(c.getID())) {
+                            mSettingsItemses.get(i).setChecked(true);
+                            setGroupName(c.getGroupName(), getApplicationContext());
+                        } else {
+                            mSettingsItemses.get(i).setChecked(false);
+                        }
+                    }
+                    Log.d("SettingsRewriteGroup", "Normal checked");
+                    mAdapter.notifyDataSetChanged();
+                }
+            });
 
             return convertView;
         }
