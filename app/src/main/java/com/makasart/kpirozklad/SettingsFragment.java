@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -32,6 +33,8 @@ public class SettingsFragment extends Fragment{
         mView = inflater.inflate(R.layout.settings_fragment, container, false);
         RelativeLayout mChooseGroup = (RelativeLayout)mView.findViewById(R.id.choose_group);
         Log.d("IN Settings", "Create");
+        TextView txtView = (TextView)mView.findViewById(R.id.display_group_settings);
+        txtView.setText(SettingsListActivity.searchWhatGroupNow(getActivity().getApplicationContext()));
         mChooseGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

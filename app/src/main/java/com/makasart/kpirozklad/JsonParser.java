@@ -28,11 +28,12 @@ import java.util.ArrayList;
 public class JsonParser {
     private String jsonString = null;   //in this line json saved
     private ArrayList<ScheduleItems> mScheduleItems = new ArrayList<ScheduleItems>();   //pre-json list
-    public static final String mFileName = "kpi_ip_63";  //name of group (in future be dynamic)
+    public static String mFileName = "ScheduleFile";  //name of group (in future be dynamic)
     public boolean mLoad = false;  //load json flag
     public boolean mSave = false;  //save json flag
     public boolean mWrongConnection = false;  //status of connection
     private Context appContext;  //app context need to save json file in working directory
+    private ArrayList<SettingsItems> mSettingsItemses;
 
     public ArrayList<ScheduleItems> getScheduleItems() {  //return serialized array list (pre-json)
         return mScheduleItems;
@@ -82,13 +83,42 @@ public class JsonParser {
         }
     }
 
+    private int someNewParse() {
+        GroupParser gp = new GroupParser(appContext);
+        int result = -100;
+        try {
+            JSONArray newJS = gp.readJsonFile();
+            gp.someParsing(newJS);
+            mSettingsItemses = gp.getSettingsItems();
+            mFileName = SettingsListActivity.searchWhatGroupNow(appContext);
+            for (int i = 0; i < mSettingsItemses.size(); i++) {
+                if(mSettingsItemses.get(i).getGroupName().equals(mFileName)) {
+                    result = mSettingsItemses.get(i).getGroupId();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     //this function need to download json from url
     public void loadJsonFile() {
         new Thread(new Runnable() {  //init stream
             @Override
             public void run() {
                 try {
-                    jsonString = readUrl("http://api.rozklad.hub.kpi.ua/groups/497/timetable.json");
+                    if(!SettingsListActivity.searchWhatGroupNow(appContext).equals("")) {
+                        int number = someNewParse();
+                        if (number != -100) {
+                            Log.d("NEWURL", "http://api.rozklad.hub.kpi.ua/groups/" + number + "/timetable.json");
+                            jsonString = readUrl("http://api.rozklad.hub.kpi.ua/groups/" + number + "/timetable.json");
+                        }
+                    } else {
+                        jsonString = null;
+                    }
                     Log.d("EBAT!!!", jsonString);
                     try {
                         JSONObject jstest = new JSONObject(jsonString);

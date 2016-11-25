@@ -35,8 +35,10 @@ public class ScheduleFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);  //now fragment have options menu
-        mScheduleItems = ScheduleLab.get(getActivity())  //get the general list to output on screen
-                .getScheduleItems();
+        ScheduleLab sl = new ScheduleLab(getActivity().getApplicationContext());  //get the general list to output on screen
+        mScheduleItems = sl.getScheduleItems();
+      //  mScheduleItems = ScheduleLab.get(getActivity())
+      //          .getScheduleItems();
         setRetainInstance(true);  //saved instance of list fragment
         ScheduleAdapter adapter = new ScheduleAdapter(mScheduleItems);
         setListAdapter(adapter);  //set view adapter
